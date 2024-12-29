@@ -1,0 +1,212 @@
+<div class="bg-[#181a31] w-full h-screen text-white font-sans overflow-auto">
+  <!-- Header -->
+  <header class="p-6 flex items-center justify-between bg-[#1d2238]">
+    <div class="flex items-center">
+      <!-- <img src="logo.png" alt="xCloud Logo" class="h-8 mr-3" /> -->
+      <span class="text-xl font-bold">xCloud</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button class="relative">
+        <span
+          class="absolute top-0 right-0 h-2 w-2 bg-green-500 rounded-full"
+        ></span>
+        <svg
+          class="h-6 w-6 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M6 18v-6a9 9 0 1118 0v6"
+          ></path>
+        </svg>
+      </button>
+      <div class="flex items-center">
+        <span>Mark Adam</span>
+        <!-- <img
+            src="avatar.png"
+            alt="User Avatar"
+            class="ml-2 h-8 w-8 rounded-full"
+          /> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto mt-10 p-6 bg-[#1d2238] rounded-lg shadow-lg">
+    <h1 class="text-[40px] font-[400] text-center mb-2">
+      Set Up Your Server With xCloud
+    </h1>
+    <p class="text-[15px] text-[#919DB9] text-center mb-6">
+      Fill in the details below to get your server set up with xCloud
+    </p>
+
+    <!-- Server Details Section -->
+    <section>
+      <h2 class="text-[18px] font-medium mb-2">Server Details</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label for="server-name" class="block text-sm text-[#74778E] mb-1"
+            >Server Name</label
+          >
+          <input
+            type="text"
+            id="server-name"
+            placeholder="Example Site"
+            class="w-full p-3 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] focus:outline-none focus:ring-[#147AFF]"
+          />
+        </div>
+        <div>
+          <label for="tags" class="block text-sm text-[#74778E] mb-1"
+            >Add Tag (Optional)</label
+          >
+          <select
+            id="tags"
+            class="w-full p-3 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] focus:outline-none focus:ring-[#147AFF]"
+          >
+            <option>Select or create tags</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Server Type Section -->
+    <section>
+      <h2 class="text-lg font-medium mb-2">Server Type</h2>
+      <div class="flex space-x-4 mb-6">
+        <button
+          class="w-1/2 p-4 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] hover:ring-[#147AFF]"
+        >
+          <div class="flex items-center space-x-2">
+            <svg
+              class="h-6 w-6 text-blue-400"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.75 3v12m0 0L4.5 9.75m5.25 5.25L15 9.75"
+              ></path>
+            </svg>
+            <div class="text-left">
+              <span>Go Live</span>
+              <p class="text-sm text-[#919DB9]">
+                Get your site up and running for the world to see by simply
+                pointing your domain to the server.
+              </p>
+            </div>
+          </div>
+        </button>
+        <button
+          class="w-1/2 p-4 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] hover:ring-[#147AFF]"
+        >
+          <div class="flex items-center space-x-2">
+            <svg
+              class="h-6 w-6 text-blue-400"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19H3m6 0v-6m6 6V9"
+              ></path>
+            </svg>
+            <div class="text-left">
+              <span>Staging Environment</span>
+              <p class="text-sm text-[#919DB9]">
+                Create your site in a staging environment and refine it until
+                it’s ready for launch.
+              </p>
+            </div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Blueprints Section -->
+    <section class="bg-[#181a31] p-5 rounded-[4px]">
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-[24px] font-[400] mb-2">Blueprints</h2>
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-[14px] text-[#919DB9]">
+              Add the following record to the DNS for your domain to get free
+            </p>
+          </div>
+        </div>
+        <div>
+          <label for="toggle" class="flex items-center cursor-pointer">
+            <div class="relative">
+              <input type="checkbox" id="toggle" class="sr-only" />
+              <div
+                class="block w-[42px] h-[24px] rounded-full"
+                [class]="showBlueprints ? 'bg-[#32BA7C]' : 'bg-white'"
+                (click)="toggleBlueprints()"
+              ></div>
+              <div
+                class="dot absolute left-1 top-1 bg-[#9DA2AE] w-[16px] h-[16px] rounded-full transition"
+                [class]="
+                  showBlueprints
+                    ? 'translate-x-[18px] bg-white'
+                    : 'translate-x-0 bg-[#9DA2AE]'
+                "
+                (click)="toggleBlueprints()"
+              ></div>
+            </div>
+          </label>
+        </div>
+      </div>
+      @if(showBlueprints){
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        @for(blueprint of xcloudService.blueprints.getValue(); track $index){
+        <app-blueprint-card [blueprint]="blueprint"></app-blueprint-card>
+        }
+      </div>
+      <div>
+        <div class="flex gap-7 items-center justify-end mt-4">
+          <button class="text-[14px] text-[#147AFF] hover:underline">
+            View all →
+          </button>
+          <button
+            class="px-3 py-2 bg-[#147AFF] hover:bg-[#147affb4] rounded-[4px] text-[14px] font-[600]"
+            (click)="createNewBlueprint()"
+          >
+            + Create New Blueprint
+          </button>
+        </div>
+      </div>
+      }
+    </section>
+
+    <!-- Advanced Settings -->
+    <div class="my-9">
+      <button
+        class="text-[15px] font-[400] bg-[#2A325C] py-4 px-6 rounded-[4px]"
+      >
+        More Advanced Settings
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-10 text-center text-gray-400">
+    <p>Copyright © 2024 xCloud Hosting LLC. All rights reserved.</p>
+    <p class="text-sm">xCloud v1.2.2</p>
+  </footer>
+</div>
+
+@if(xcloudService.showCreateBlueprintModal.getValue()){
+<app-create-blueprint-modal></app-create-blueprint-modal>
+}

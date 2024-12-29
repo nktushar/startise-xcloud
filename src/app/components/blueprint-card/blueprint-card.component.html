@@ -1,0 +1,43 @@
+<div
+  class="p-4 bg-[#1D2239] rounded-[4px] hover:ring-1 hover:ring-[#147AFF]"
+  [class]="isSelected ? 'ring-1 ring-[#147AFF]' : ''"
+>
+  <div class="flex items-start justify-between mb-3">
+    <div class="flex gap-2">
+      <h3 class="text-sm font-[500]">{{ blueprint.name }}</h3>
+      <span
+        class="bg-[#313A6C] px-1.5 rounded-[4px] text-[12px] font-[400]"
+        [class]="blueprint.isDefault ? 'block' : 'hidden'"
+        >default</span
+      >
+    </div>
+    <div class="flex items-center">
+      <input
+        id="checked-checkbox"
+        type="checkbox"
+        value=""
+        class="w-4 h-4 rounded-full text-blue-600 bg-gray-100 border-gray-300 appearance-none checked:bg-blue-600 checked:border-transparent"
+      />
+    </div>
+  </div>
+  <div class="flex items-center gap-1">
+    @for(plugin of blueprint.plugins.slice(0, 3); track $index){
+
+    <div
+      class="w-[24px] h-[24px] rounded-[4px] flex items-center justify-center text-[14px] font-[500]"
+      [style]="{
+        'background-color': xcloudService.getColorForPlugin(plugin.name).bg,
+        color: xcloudService.getColorForPlugin(plugin.name).text
+      }"
+    >
+      {{ plugin.name[0] }}
+    </div>
+    } @if(blueprint.plugins.length > 3){
+    <div
+      class="w-[24px] h-[24px] rounded-[4px] flex items-center justify-center text-[14px] font-[500] bg-[#80B7FF] text-[#171A30]"
+    >
+      {{ blueprint.plugins.length - 3 }}+
+    </div>
+    }
+  </div>
+</div>

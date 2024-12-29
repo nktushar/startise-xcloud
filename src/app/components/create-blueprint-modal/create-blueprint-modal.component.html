@@ -1,0 +1,141 @@
+<div
+  class="fixed top-0 left-0 w-screen h-screen bg-[#171A30CC] flex items-center justify-center z-50"
+>
+  <div
+    class="w-[calc(100%-100px)] h-[calc(100%-100px)] p-6 bg-[#1D2239] text-white relative rounded-[8px]"
+  >
+    <!-- Header -->
+    <div class="w-full flex justify-between">
+      <h1 class="text-[32px] font-[500] mb-6">Create Blueprint</h1>
+      <button
+        class="p-2 h-6 w-6 flex items-center justify-center bg-white text-black"
+      >
+        X
+      </button>
+    </div>
+
+    <!-- Input for blueprint name -->
+    <input
+      type="text"
+      id="blueprintName"
+      placeholder="Name your blueprint"
+      class="w-full mb-4 p-3 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] focus:outline-none focus:ring-[#147AFF]"
+    />
+
+    <!-- Tabs -->
+    <div
+      class="w-full h-[50px] bg-[#171A30] flex items-center justify-between mb-6 rounded-[4px]"
+    >
+      <ul class="w-auto h-full flex">
+        <li class="w-auto h-full px-4 flex items-center">Themes</li>
+        <li class="w-auto h-full px-4 border-b border-white flex items-center">
+          Plugins
+        </li>
+        <li class="w-auto h-full px-4 flex items-center">Popular Plugins</li>
+      </ul>
+      <div class="max-w-[311px]">
+        <!-- Search Bar -->
+        <div class="relative mr-2">
+          <input
+            type="text"
+            placeholder="Search"
+            class="w-full h-9 p-3 pl-10 bg-[#1D2239] text-white rounded-[4px]"
+          />
+          <svg
+            class="absolute right-3 top-1/2 transform -translate-y-1/2"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_411_8044)">
+              <path
+                d="M4 11C4 11.9193 4.18106 12.8295 4.53284 13.6788C4.88463 14.5281 5.40024 15.2997 6.05025 15.9497C6.70026 16.5998 7.47194 17.1154 8.32122 17.4672C9.1705 17.8189 10.0807 18 11 18C11.9193 18 12.8295 17.8189 13.6788 17.4672C14.5281 17.1154 15.2997 16.5998 15.9497 15.9497C16.5998 15.2997 17.1154 14.5281 17.4672 13.6788C17.8189 12.8295 18 11.9193 18 11C18 10.0807 17.8189 9.1705 17.4672 8.32122C17.1154 7.47194 16.5998 6.70026 15.9497 6.05025C15.2997 5.40024 14.5281 4.88463 13.6788 4.53284C12.8295 4.18106 11.9193 4 11 4C10.0807 4 9.1705 4.18106 8.32122 4.53284C7.47194 4.88463 6.70026 5.40024 6.05025 6.05025C5.40024 6.70026 4.88463 7.47194 4.53284 8.32122C4.18106 9.1705 4 10.0807 4 11Z"
+                stroke="#C1C9DE"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M20 20L16 16"
+                stroke="#C1C9DE"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_411_8044">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- alphabet -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      @for(plugin of selectedPlugins; track $index){
+
+      <div
+        class="tooltip w-[48px] h-[48px] rounded-[4px] flex items-center justify-center text-[24px] font-[600] relative hover:bottom-3 group"
+        [style]="{
+          'background-color': xcloudService.getColorForPlugin(plugin.name).bg,
+          color: xcloudService.getColorForPlugin(plugin.name).text
+        }"
+      >
+        {{ plugin.name[0] }}
+        <div
+          class="absolute -top-1 -right-1 bg-[#1D2239] rounded-full flex items-center justify-center w-[18px] h-[18px]"
+        >
+          <img
+            class="w-[16px] h-[16px] group-hover:hidden"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Eo_circle_green_checkmark.svg/1200px-Eo_circle_green_checkmark.svg.png"
+            alt=""
+          />
+          <div
+            class="w-[16px] h-[16px] rounded-full bg-white items-center cursor-pointer justify-center hidden group-hover:flex"
+            (click)="selectPlugin(plugin)"
+          >
+            <img
+              class="w-[10px] h-[10px]"
+              src="https://mfcfoundation.co.uk/wp-content/uploads/2017/06/RED-CROSS.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <span class="tooltiptext text-[12px] font-[400] bg-[#232A4E]">{{
+          plugin.name
+        }}</span>
+      </div>
+      }
+    </div>
+
+    <!-- Plugin Cards -->
+    <div
+      class="p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-auto w-full pb-48 h-[calc(100%-200px)]"
+      style="scrollbar-width: none; -ms-overflow-style: none"
+    >
+      @for(plugin of xcloudService.plugins; track $index){
+      <app-plugin-card
+        [plugin]="plugin"
+        (click)="selectPlugin(plugin)"
+      ></app-plugin-card>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div
+      class="absolute bottom-0 left-0 w-full h-[75px] px-10 bg-[#232A4E] flex items-center justify-end rounded-b-[8px]"
+    >
+      <button
+        class="px-6 py-2 bg-[#147AFF] hover:bg-blue-600 rounded-lg text-[16px] text-white font-[600]"
+        (click)="goToNextStep()"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
