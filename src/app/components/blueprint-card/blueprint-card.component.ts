@@ -11,11 +11,12 @@ export class BlueprintCardComponent implements OnInit {
   xcloudService = inject(XcloudService);
   isSelected: boolean = false;
   @Input() blueprint: any;
+  @Input() isDarkMode: boolean = false;
 
   constructor() {}
   ngOnInit() {
     this.xcloudService.selectedBlueprint.subscribe((blueprint) => {
-      this.isSelected = blueprint.id === this.blueprint.id;
+      this.isSelected = blueprint.isDefault == true;
     });
   }
 }

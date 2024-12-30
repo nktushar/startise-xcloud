@@ -1,1 +1,43 @@
-<p>blueprint-list-modal works!</p>
+<div
+  class="fixed top-0 left-0 w-screen h-screen bg-[#171A30CC] flex justify-center items-center z-50"
+>
+  <div
+    class="w-[1050px] max-h-[calc(100%-100px)] bg-[#1D2239] text-white relative rounded-[8px]"
+  >
+    <!-- Header -->
+    <div class="w-full py-5 px-8 flex justify-between items-center">
+      <h1 class="text-[32px] font-[500]">Create Blueprint</h1>
+      <button
+        class="px-3 py-2 bg-[#147AFF] hover:bg-[#147affb4] rounded-[4px] text-[14px] font-[600]"
+        (click)="createNewBlueprint()"
+      >
+        + Create New Blueprint
+      </button>
+    </div>
+
+    <!-- Plugin Cards -->
+    <div
+      class="w-full h-[calc(100%-50px)] mb-[80px] py-2 px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto"
+      style="scrollbar-width: none; -ms-overflow-style: none"
+    >
+      @for(blueprint of allBlueprints; track $index){
+      <app-blueprint-card
+        [blueprint]="blueprint"
+        [isDarkMode]="true"
+      ></app-blueprint-card>
+      }
+    </div>
+
+    <!-- Footer -->
+    <div
+      class="absolute bottom-0 left-0 w-full h-[75px] px-10 mb-4 flex items-center justify-end rounded-b-[8px]"
+    >
+      <button
+        class="px-6 py-2 bg-[#2DC774] hover:bg-[#2dc775cc] rounded-lg text-[16px] text-white font-[600]"
+        (click)="okButton()"
+      >
+        Ok
+      </button>
+    </div>
+  </div>
+</div>

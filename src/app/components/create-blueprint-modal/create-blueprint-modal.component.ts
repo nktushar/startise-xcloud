@@ -1,5 +1,5 @@
 import { XcloudService } from './../../services/xcloud-service/xcloud.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { PluginCardComponent } from '../plugin-card/plugin-card.component';
 import { log } from 'console';
 
@@ -9,14 +9,15 @@ import { log } from 'console';
   templateUrl: './create-blueprint-modal.component.html',
   styleUrl: './create-blueprint-modal.component.scss',
 })
-export class CreateBlueprintModalComponent implements OnInit {
+export class CreateBlueprintModalComponent implements OnInit, OnDestroy {
   xcloudService = inject(XcloudService);
 
   blueprintName: string = '';
   searchQuery: string = '';
   selectedLetter: string = '';
-  alphabet: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   selectedPlugins: any[] = [];
+  hasError: boolean = false;
+  pluginError: boolean = false;
 
   constructor() {}
   ngOnInit() {
@@ -25,15 +26,18 @@ export class CreateBlueprintModalComponent implements OnInit {
     });
   }
 
-  setBlueprintName(name: string | null) {
-    this.blueprintName = name ?? '';
+  onInputChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.blueprintName = inputElement.value;
+    this.hasError = false;
   }
 
-  goToNextStep() {
-    console.log('Next step:', this.blueprintName);
+  closeModal() {
+    this.xcloudService.showCreateBlueprintModal.next(false);
   }
 
   selectPlugin(plugin: any) {
+    this.pluginError = false;
     const currentPlugins = this.xcloudService.selectedPlugins.getValue();
     const pluginIndex = currentPlugins.findIndex(
       (p: any) => p.id === plugin.id
@@ -47,5 +51,39 @@ export class CreateBlueprintModalComponent implements OnInit {
     } else {
       this.xcloudService.selectedPlugins.next([...currentPlugins, plugin]);
     }
+  }
+
+  closeError() {
+    this.hasError = false;
+    this.pluginError = false;
+  }
+
+  saveBlueprint() {
+    if (this.blueprintName === '') {
+      this.hasError = true;
+      return;
+    }
+
+    if (this.xcloudService.selectedPlugins.getValue().length === 0) {
+      this.pluginError = true;
+      return;
+    }
+
+    this.xcloudService.blueprints.next([
+      ...this.xcloudService.blueprints.getValue(),
+      {
+        id: this.xcloudService.blueprints.getValue().length + 1,
+        name: this.blueprintName,
+        isDefault: false,
+        plugins: this.selectedPlugins,
+      },
+    ]);
+
+    this.xcloudService.showCreateBlueprintModal.next(false);
+    this.xcloudService.showBlueprintListModal.next(true);
+  }
+
+  ngOnDestroy() {
+    this.xcloudService.selectedPlugins.next([]);
   }
 }

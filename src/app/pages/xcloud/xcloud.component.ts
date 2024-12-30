@@ -3,10 +3,15 @@ import { BlueprintCardComponent } from '../../components/blueprint-card/blueprin
 import { XcloudService } from '../../services/xcloud-service/xcloud.service';
 import { log } from 'console';
 import { CreateBlueprintModalComponent } from '../../components/create-blueprint-modal/create-blueprint-modal.component';
+import { BlueprintListModalComponent } from '../../components/blueprint-list-modal/blueprint-list-modal.component';
 
 @Component({
   selector: 'app-xcloud',
-  imports: [BlueprintCardComponent, CreateBlueprintModalComponent],
+  imports: [
+    BlueprintCardComponent,
+    CreateBlueprintModalComponent,
+    BlueprintListModalComponent,
+  ],
   templateUrl: './xcloud.component.html',
   styleUrl: './xcloud.component.scss',
   standalone: true,
@@ -22,15 +27,13 @@ export class XcloudComponent {
 
   toggleBlueprints() {
     this.showBlueprints = !this.showBlueprints;
-    console.log('showBlueprints', this.showBlueprints);
   }
 
   createNewBlueprint() {
     this.xcloudService.showCreateBlueprintModal.next(true);
+  }
 
-    console.log(
-      'createNewBlueprint',
-      this.xcloudService.showCreateBlueprintModal.getValue()
-    );
+  viewAllBlueprints() {
+    this.xcloudService.showBlueprintListModal.next(true);
   }
 }

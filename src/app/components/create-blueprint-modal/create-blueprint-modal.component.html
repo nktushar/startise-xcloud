@@ -1,141 +1,333 @@
 <div
-  class="fixed top-0 left-0 w-screen h-screen bg-[#171A30CC] flex items-center justify-center z-50"
+  class="fixed top-0 left-0 w-screen h-screen bg-[#171A30CC] flex justify-center items-center z-50"
 >
-  <div
-    class="w-[calc(100%-100px)] h-[calc(100%-100px)] p-6 bg-[#1D2239] text-white relative rounded-[8px]"
-  >
-    <!-- Header -->
-    <div class="w-full flex justify-between">
-      <h1 class="text-[32px] font-[500] mb-6">Create Blueprint</h1>
-      <button
-        class="p-2 h-6 w-6 flex items-center justify-center bg-white text-black"
-      >
-        X
+  <div>
+    <div
+      class="max-w-[1050px] h-[42px] my-2 bg-[#F8A643] bg-opacity-5 border border-[#F8A643] border-opacity-40 rounded-[4px] flex items-center justify-between px-6"
+      [class]="hasError || pluginError ? 'visible' : 'hidden'"
+    >
+      <div class="flex items-center gap-2">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_411_9250)">
+            <path
+              d="M9 6.75V9.75"
+              stroke="#F8A643"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M7.77187 2.69242L1.69237 12.8429C1.56704 13.06 1.50072 13.306 1.50001 13.5566C1.49929 13.8073 1.5642 14.0537 1.68828 14.2715C1.81237 14.4892 1.9913 14.6707 2.20728 14.7978C2.42326 14.925 2.66876 14.9933 2.91937 14.9962H15.0799C15.3304 14.9933 15.5758 14.9249 15.7916 14.7978C16.0075 14.6707 16.1864 14.4893 16.3104 14.2717C16.4345 14.054 16.4994 13.8077 16.4988 13.5572C16.4982 13.3067 16.432 13.0607 16.3069 12.8437L10.2274 2.69167C10.0995 2.48054 9.91928 2.30597 9.70421 2.18481C9.48915 2.06365 9.24647 2 8.99962 2C8.75278 2 8.5101 2.06365 8.29504 2.18481C8.07997 2.30597 7.89978 2.48054 7.77187 2.69167V2.69242Z"
+              stroke="#F8A643"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 12H9.01"
+              stroke="#F8A643"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_411_9250">
+              <rect width="18" height="18" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+        <p class="text-[14px] text-[#A1A7BA] font-[400]">
+          {{
+            hasError
+              ? "Warning: Please enter a blueprint name"
+              : "Warning: Please select a plugin"
+          }}
+        </p>
+      </div>
+      <button (click)="closeError()">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_411_9256)">
+            <path
+              d="M6.66797 6.66406L9.33464 9.33073M9.33464 6.66406L6.66797 9.33073"
+              stroke="#F8A643"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8 2C12.8 2 14 3.2 14 8C14 12.8 12.8 14 8 14C3.2 14 2 12.8 2 8C2 3.2 3.2 2 8 2Z"
+              stroke="#F8A643"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_411_9256">
+              <rect width="16" height="16" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
       </button>
     </div>
 
-    <!-- Input for blueprint name -->
-    <input
-      type="text"
-      id="blueprintName"
-      placeholder="Name your blueprint"
-      class="w-full mb-4 p-3 bg-transparent rounded-[4px] ring-1 ring-[#313A6C] focus:outline-none focus:ring-[#147AFF]"
-    />
-
-    <!-- Tabs -->
     <div
-      class="w-full h-[50px] bg-[#171A30] flex items-center justify-between mb-6 rounded-[4px]"
+      class="max-w-[1050px] mx-auto h-[1000px] max-h-[calc(100%-100px)] p-6 bg-[#1D2239] text-white relative rounded-[8px]"
     >
-      <ul class="w-auto h-full flex">
-        <li class="w-auto h-full px-4 flex items-center">Themes</li>
-        <li class="w-auto h-full px-4 border-b border-white flex items-center">
-          Plugins
-        </li>
-        <li class="w-auto h-full px-4 flex items-center">Popular Plugins</li>
-      </ul>
-      <div class="max-w-[311px]">
-        <!-- Search Bar -->
-        <div class="relative mr-2">
-          <input
-            type="text"
-            placeholder="Search"
-            class="w-full h-9 p-3 pl-10 bg-[#1D2239] text-white rounded-[4px]"
-          />
-          <svg
-            class="absolute right-3 top-1/2 transform -translate-y-1/2"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_411_8044)">
-              <path
-                d="M4 11C4 11.9193 4.18106 12.8295 4.53284 13.6788C4.88463 14.5281 5.40024 15.2997 6.05025 15.9497C6.70026 16.5998 7.47194 17.1154 8.32122 17.4672C9.1705 17.8189 10.0807 18 11 18C11.9193 18 12.8295 17.8189 13.6788 17.4672C14.5281 17.1154 15.2997 16.5998 15.9497 15.9497C16.5998 15.2997 17.1154 14.5281 17.4672 13.6788C17.8189 12.8295 18 11.9193 18 11C18 10.0807 17.8189 9.1705 17.4672 8.32122C17.1154 7.47194 16.5998 6.70026 15.9497 6.05025C15.2997 5.40024 14.5281 4.88463 13.6788 4.53284C12.8295 4.18106 11.9193 4 11 4C10.0807 4 9.1705 4.18106 8.32122 4.53284C7.47194 4.88463 6.70026 5.40024 6.05025 6.05025C5.40024 6.70026 4.88463 7.47194 4.53284 8.32122C4.18106 9.1705 4 10.0807 4 11Z"
-                stroke="#C1C9DE"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M20 20L16 16"
-                stroke="#C1C9DE"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_411_8044">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- alphabet -->
-    <div class="flex flex-wrap gap-2 mb-6">
-      @for(plugin of selectedPlugins; track $index){
-
-      <div
-        class="tooltip w-[48px] h-[48px] rounded-[4px] flex items-center justify-center text-[24px] font-[600] relative hover:bottom-3 group"
-        [style]="{
-          'background-color': xcloudService.getColorForPlugin(plugin.name).bg,
-          color: xcloudService.getColorForPlugin(plugin.name).text
-        }"
-      >
-        {{ plugin.name[0] }}
-        <div
-          class="absolute -top-1 -right-1 bg-[#1D2239] rounded-full flex items-center justify-center w-[18px] h-[18px]"
+      <!-- Header -->
+      <div class="w-full flex justify-between">
+        <h1 class="text-[32px] font-[500] mb-6">Create Blueprint</h1>
+        <svg
+          class="cursor-pointer"
+          (click)="closeModal()"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <img
-            class="w-[16px] h-[16px] group-hover:hidden"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Eo_circle_green_checkmark.svg/1200px-Eo_circle_green_checkmark.svg.png"
-            alt=""
-          />
-          <div
-            class="w-[16px] h-[16px] rounded-full bg-white items-center cursor-pointer justify-center hidden group-hover:flex"
-            (click)="selectPlugin(plugin)"
-          >
-            <img
-              class="w-[10px] h-[10px]"
-              src="https://mfcfoundation.co.uk/wp-content/uploads/2017/06/RED-CROSS.png"
-              alt=""
+          <g clip-path="url(#clip0_411_7013)">
+            <path
+              d="M13.3359 13.332L18.6693 18.6654M18.6693 13.332L13.3359 18.6654"
+              stroke="#919DB9"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
+            <path
+              d="M16 4C25.6 4 28 6.4 28 16C28 25.6 25.6 28 16 28C6.4 28 4 25.6 4 16C4 6.4 6.4 4 16 4Z"
+              stroke="#919DB9"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_411_7013">
+              <rect width="32" height="32" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- Input for blueprint name -->
+      <input
+        type="text"
+        id="blueprintName"
+        (input)="onInputChange($event)"
+        placeholder="Name your blueprint"
+        class="w-full mb-4 p-3 bg-transparent rounded-[4px] ring-1 focus:outline-none focus:ring-[#32BA7C]"
+        [class]="hasError ? ' ring-[#FC573B]' : 'ring-[#313A6C]'"
+      />
+
+      <!-- Tabs -->
+      <div
+        class="w-full h-[50px] bg-[#171A30] flex items-center justify-between mb-6 rounded-[4px]"
+      >
+        <ul class="w-auto h-full flex">
+          <li class="w-auto h-full px-4 flex items-center">Themes</li>
+          <li
+            class="w-auto h-full px-4 border-b border-white flex items-center"
+          >
+            Plugins
+          </li>
+          <li class="w-auto h-full px-4 flex items-center">Popular Plugins</li>
+        </ul>
+        <div class="max-w-[311px]">
+          <!-- Search Bar -->
+          <div class="relative mr-2">
+            <input
+              type="text"
+              placeholder="Search"
+              class="w-full h-9 p-3 pl-10 bg-[#1D2239] text-white rounded-[4px]"
+            />
+            <svg
+              class="absolute right-3 top-1/2 transform -translate-y-1/2"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_411_8044)">
+                <path
+                  d="M4 11C4 11.9193 4.18106 12.8295 4.53284 13.6788C4.88463 14.5281 5.40024 15.2997 6.05025 15.9497C6.70026 16.5998 7.47194 17.1154 8.32122 17.4672C9.1705 17.8189 10.0807 18 11 18C11.9193 18 12.8295 17.8189 13.6788 17.4672C14.5281 17.1154 15.2997 16.5998 15.9497 15.9497C16.5998 15.2997 17.1154 14.5281 17.4672 13.6788C17.8189 12.8295 18 11.9193 18 11C18 10.0807 17.8189 9.1705 17.4672 8.32122C17.1154 7.47194 16.5998 6.70026 15.9497 6.05025C15.2997 5.40024 14.5281 4.88463 13.6788 4.53284C12.8295 4.18106 11.9193 4 11 4C10.0807 4 9.1705 4.18106 8.32122 4.53284C7.47194 4.88463 6.70026 5.40024 6.05025 6.05025C5.40024 6.70026 4.88463 7.47194 4.53284 8.32122C4.18106 9.1705 4 10.0807 4 11Z"
+                  stroke="#C1C9DE"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M20 20L16 16"
+                  stroke="#C1C9DE"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_411_8044">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
           </div>
         </div>
-        <span class="tooltiptext text-[12px] font-[400] bg-[#232A4E]">{{
-          plugin.name
-        }}</span>
       </div>
-      }
-    </div>
 
-    <!-- Plugin Cards -->
-    <div
-      class="p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-auto w-full pb-48 h-[calc(100%-200px)]"
-      style="scrollbar-width: none; -ms-overflow-style: none"
-    >
-      @for(plugin of xcloudService.plugins; track $index){
-      <app-plugin-card
-        [plugin]="plugin"
-        (click)="selectPlugin(plugin)"
-      ></app-plugin-card>
-      }
-    </div>
+      <!-- alphabet -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        @for(plugin of selectedPlugins; track $index){
 
-    <!-- Footer -->
-    <div
-      class="absolute bottom-0 left-0 w-full h-[75px] px-10 bg-[#232A4E] flex items-center justify-end rounded-b-[8px]"
-    >
-      <button
-        class="px-6 py-2 bg-[#147AFF] hover:bg-blue-600 rounded-lg text-[16px] text-white font-[600]"
-        (click)="goToNextStep()"
+        <div
+          class="tooltip w-[48px] h-[48px] rounded-[4px] flex items-center justify-center text-[24px] font-[600] relative hover:bottom-3 group"
+          [style]="{
+            'background-color': xcloudService.getColorForPlugin(plugin.name).bg,
+            color: xcloudService.getColorForPlugin(plugin.name).text
+          }"
+        >
+          {{ plugin.name[0] }}
+          <div
+            class="absolute -top-1 -right-1 rounded-full flex items-center justify-center"
+          >
+            <svg
+              class="group-hover:hidden"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.5"
+                y="0.5"
+                width="15"
+                height="15"
+                rx="7.5"
+                fill="#2DC774"
+              />
+              <rect
+                x="0.5"
+                y="0.5"
+                width="15"
+                height="15"
+                rx="7.5"
+                stroke="#1D2239"
+              />
+              <g clip-path="url(#clip0_411_7140)">
+                <path
+                  d="M4.5 8L7 10.5L12 5.5"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_411_7140">
+                  <rect
+                    width="12"
+                    height="12"
+                    fill="white"
+                    transform="translate(2 2)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+
+            <svg
+              class="cursor-pointer justify-center hidden group-hover:flex"
+              (click)="selectPlugin(plugin)"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="0.5"
+                y="0.5"
+                width="15"
+                height="15"
+                rx="7.5"
+                fill="#E9F4FF"
+              />
+              <rect
+                x="0.5"
+                y="0.5"
+                width="15"
+                height="15"
+                rx="7.5"
+                stroke="#1D2239"
+              />
+              <g clip-path="url(#clip0_411_7182)">
+                <path
+                  d="M11 5L5 11"
+                  stroke="#FC573B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M5 5L11 11"
+                  stroke="#FC573B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_411_7182">
+                  <rect
+                    width="12"
+                    height="12"
+                    fill="white"
+                    transform="translate(2 2)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span class="tooltiptext text-[12px] font-[400] bg-[#232A4E]">{{
+            plugin.name
+          }}</span>
+        </div>
+        }
+      </div>
+
+      <!-- Plugin Cards -->
+      <div
+        class="p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto w-full h-[calc(100%-300px)]"
+        style="scrollbar-width: none; -ms-overflow-style: none"
       >
-        Next
-      </button>
+        @for(plugin of xcloudService.plugins; track $index){
+        <app-plugin-card
+          [plugin]="plugin"
+          (click)="selectPlugin(plugin)"
+        ></app-plugin-card>
+        }
+      </div>
+
+      <!-- Footer -->
+      <div
+        class="absolute bottom-0 left-0 w-full h-[75px] px-10 bg-[#232A4E] flex items-center justify-end rounded-b-[8px]"
+      >
+        <button
+          class="px-6 py-2 bg-[#147AFF] hover:bg-blue-600 rounded-lg text-[16px] text-white font-[600]"
+          (click)="saveBlueprint()"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </div>
 </div>
